@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads the latest version of QGIS.
+
+Override the key "RELEASE_TYPE" to specify the release you want: "pr" for the latest Point Release or "ltr" for the Long Term Release.</string>
+    <key>Identifier</key>
+    <string>com.github.frzk.download.QGIS</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>QGIS</string>
+        <key>RELEASE_TYPE</key>
+        <string>pr</string>
+        <key>SEARCH_URL</key>
+        <string>https://www.qgis.org/en/site/forusers/download.html</string>
+        <key>SEARCH_PATTERN</key>
+        <string>(?P&lt;url&gt;https\://qgis\.org/downloads/macos/qgis-macos-%RELEASE_TYPE%\.dmg)</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.4.0</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>URLTextSearcher</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>%SEARCH_URL%</string>
+                <key>re_pattern</key>
+                <string>%SEARCH_PATTERN%</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>%url%</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>AppDmgVersioner</string>
+            <key>Arguments</key>
+            <dict>
+                <key>dmg_path</key>
+                <string>%pathname%</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+    </array>
+</dict>
+</plist>
