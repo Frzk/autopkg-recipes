@@ -14,6 +14,8 @@ Override the key "RELEASE_TYPE" to specify the release you want: "pr" for the la
         <string>QGIS</string>
         <key>RELEASE_TYPE</key>
         <string>pr</string>
+        <key>DOWNLOADED_FILENAME</key>
+        <string>qgis-macos-%REALEASE_TYPE%.dmg</string>
         <key>SEARCH_URL</key>
         <string>https://www.qgis.org/en/site/forusers/download.html</string>
         <key>SEARCH_PATTERN</key>
@@ -39,6 +41,8 @@ Override the key "RELEASE_TYPE" to specify the release you want: "pr" for the la
             <string>URLDownloader</string>
             <key>Arguments</key>
             <dict>
+                <key>filename</key>
+                <string>%DOWNLOADED_FILENAME%</string>
                 <key>url</key>
                 <string>%url%</string>
             </dict>
