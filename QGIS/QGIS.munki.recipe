@@ -10,8 +10,6 @@
     <dict>
         <key>RELEASE</key>
         <string>pr</string>
-        <key>DOWNLOADED_FILENAME</key>
-        <string>qgis-macos-%RELEASE%.dmg</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps/qgis</string>
         <key>NAME</key>

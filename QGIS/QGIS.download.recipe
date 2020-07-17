@@ -14,8 +14,6 @@ Override the key "RELEASE" to specify the release you want: "pr" for the latest 
         <string>qgis</string>
         <key>RELEASE</key>
         <string>pr</string>
-        <key>DOWNLOADED_FILENAME</key>
-        <string>%NAME%-macos-%RELEASE%.dmg</string>
         <key>SEARCH_URL</key>
         <string>https://www.qgis.org/en/site/forusers/download.html</string>
         <key>SEARCH_PATTERN</key>
@@ -42,7 +40,7 @@ Override the key "RELEASE" to specify the release you want: "pr" for the latest 
             <key>Arguments</key>
             <dict>
                 <key>filename</key>
-                <string>%DOWNLOADED_FILENAME%</string>
+                <string>%NAME%.dmg</string>
                 <key>url</key>
                 <string>%url%</string>
             </dict>
