@@ -11,11 +11,11 @@ Override the key "RELEASE" to specify the release you want: "pr" for the latest 
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>QGIS</string>
+        <string>qgis</string>
         <key>RELEASE</key>
         <string>pr</string>
         <key>DOWNLOADED_FILENAME</key>
-        <string>qgis-macos-%RELEASE%.dmg</string>
+        <string>%NAME%-macos-%RELEASE%.dmg</string>
         <key>SEARCH_URL</key>
         <string>https://www.qgis.org/en/site/forusers/download.html</string>
         <key>SEARCH_PATTERN</key>
