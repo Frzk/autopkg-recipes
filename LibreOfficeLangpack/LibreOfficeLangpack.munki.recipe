@@ -11,7 +11,7 @@
         <key>LANGUAGE_CODE</key>
         <string>fr</string>
         <key>VERSION</key>
-        <string>latest</version>
+        <string>latest</string>
         <key>MUNKI_CATEGORY</key>
         <string>Productivity</string>
         <key>MUNKI_REPO_SUBDIR</key>
