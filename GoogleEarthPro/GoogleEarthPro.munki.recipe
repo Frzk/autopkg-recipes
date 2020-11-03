@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads, packages and imports the latest version of Google Earth Pro.</string>
+    <key>Identifier</key>
+    <string>com.github.frzk.munki.GoogleEarthPro</string>
+    <key>Input</key>
+    <dict>
+        <key>MUNKI_REPO_SUBDIR</key>
+        <string>apps/google</string>
+        <key>NAME</key>
+        <string>google_earth_pro</string>
+        <key>pkginfo</key>
+        <dict>
+            <key>catalogs</key>
+            <array>
+                <string>production</string>
+            </array>
+            <key>description</key>
+            <string>Google Earth Pro allows one to take a virtual journey to any location in the world. To explore 3D buildings, imagery, and terrain. To find cities, places and local businesses.</string>
+            <key>display_name</key>
+            <string>Google Earth Pro</string>
+            <key>name</key>
+            <string>%NAME%</string>
+            <key>category</key>
+            <string>GIS</string>
+            <key>developer</key>
+            <string>Google</string>
+            <key>unattended_install</key>
+            <true/>
+            <key>localized_strings</key>
+            <dict>
+                <key>fallback_locale</key>
+                <string>en</string>
+                <key>fr</key>
+                <dict>
+                    <key>category</key>
+                    <string>SIG</string>
+                    <key>description</key>
+                    <string>Google Earth Pro permet de parcourir le monde entier vu du ciel avec les images satellite, le relief de l'ensemble du globe en 3D et les bâtiments 3D dans des centaines de villes de divers pays. Google Earth Pro propose une déclinaison de Google Earth orientée spécifiquement en direction des professionnels afin d'augmenter la productivité, de communiquer visuellement et de partager des informations géographiques. Cette version supporte l'importation de données SIG, l'impression en haute résolution et la mesure de la superficie. Google Earth Pro dispose également d'un outil d'importation de feuilles de calcul, très pratique pour l'aide à la cartographie.</string>
+                </dict>
+            </dict>
+        </dict>
+    </dict>
+    <key>ParentRecipe</key>
+    <string>com.github.frzk.pkg.GoogleEarthPro</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiImporter</string>
+            <key>Arguments</key>
+            <dict>
+                <key>pkg_path</key>
+                <string>%pkg_path%</string>
+                <key>repo_subdirectory</key>
+                <string>%MUNKI_REPO_SUBDIR%</string>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>
