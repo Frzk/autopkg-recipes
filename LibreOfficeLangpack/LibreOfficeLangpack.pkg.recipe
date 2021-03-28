@@ -26,6 +26,8 @@
             <string>AppDmgVersioner</string>
             <key>Arguments</key>
             <dict>
+                <key>comment</key>
+                <string>Extracts LibreOffice.app bundle ID and version from the previously downloaded dmg.</string>
                 <key>dmg_path</key>
                 <string>%app_pathname%</string>
             </dict>
@@ -49,10 +51,12 @@
             <string>Copier</string>
             <key>Arguments</key>
             <dict>
-                <key>destination_path</key>
-                <string>%pkgroot%/Applications/LibreOffice.app</string>
+                <key>comment</key>
+                <string>Copy LibreOffice.app to the new package.</string>
                 <key>source_path</key>
                 <string>%app_pathname%/LibreOffice.app</string>
+                <key>destination_path</key>
+                <string>%pkgroot%/Applications/LibreOffice.app</string>
             </dict>
         </dict>
         <dict>
@@ -60,10 +64,12 @@
             <string>Copier</string>
             <key>Arguments</key>
             <dict>
+                <key>comment</key>
+                <string>Copy the language tarball to the recipe cache directory.</string>
+                <key>source_path</key>
+                <string>%pathname%/LibreOffice Language Pack.app/Contents/Resources/tarball.tar.bz2</string>
                 <key>destination_path</key>
                 <string>%RECIPE_CACHE_DIR%</string>
-                <key>source_path</key>
-                <string>%pathname%/LibreOffice Language Pack.app/Contents/tarball.tar.bz2</string>
             </dict>
         </dict>
         <dict>
@@ -71,6 +77,8 @@
             <string>Unarchiver</string>
             <key>Arguments</key>
             <dict>
+                <key>comment</key>
+                <string>Extract the tarball content to the .app</string>
                 <key>archive_path</key>
                 <string>%RECIPE_CACHE_DIR%/tarball.tar.bz2</string>
                 <key>destination_path</key>
