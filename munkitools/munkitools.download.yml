@@ -1,0 +1,15 @@
+---
+Description: Downloads the latest version of Munki from GitHub.
+Identifier: com.github.frzk.download.munkitools
+Input:
+  INCLUDE_PRERELEASES: 
+MinimumVersion: 2.3
+Process:
+  - Processor: GitHubReleasesInfoProvider
+    Arguments:
+      asset_regex: ^munkitools-5.*?pkg$
+      github_repo: munki/munki
+      include_prereleases: %INCLUDE_PRERELEASES%
+  - Processor: URLDownloader
+  - Processor: EndOfCheckPhase
+...

@@ -1,0 +1,14 @@
+---
+Description: Downloads Munki from GitHub, creates a package from it and imports it into Munki. The embedded Python framework will be codesigned.
+Identifier: com.github.frzk.munki.munkitools
+Input:
+  INCLUDE_PRERELEASES: 
+  MUNKI_REPO_SUBDIR: apps/munkitools
+MinimumVersion: 2.3
+ParentRecipe: com.github.frzk.pkg.munkitools
+Process:
+  - Processor: MunkiImporter
+    Arguments:
+      pkg_path: %pkg_path%
+      repo_subdirectory: %MUNKI_REPO_SUBDIR%
+...
