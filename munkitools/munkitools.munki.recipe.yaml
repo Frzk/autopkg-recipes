@@ -9,6 +9,6 @@ ParentRecipe: com.github.frzk.pkg.munkitools
 Process:
   - Processor: MunkiImporter
     Arguments:
-      pkg_path: %pkg_path%
-      repo_subdirectory: %MUNKI_REPO_SUBDIR%
+      pkg_path: "%pkg_path%"
+      repo_subdirectory: "%MUNKI_REPO_SUBDIR%"
 ...
