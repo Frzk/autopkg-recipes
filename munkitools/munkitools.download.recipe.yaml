@@ -7,9 +7,9 @@ MinimumVersion: 2.3
 Process:
   - Processor: GitHubReleasesInfoProvider
     Arguments:
-      asset_regex: ^munkitools-5.*?pkg$
-      github_repo: munki/munki
-      include_prereleases: %INCLUDE_PRERELEASES%
+      asset_regex: "^munkitools-5.*?pkg$"
+      github_repo: "munki/munki"
+      include_prereleases: "%INCLUDE_PRERELEASES%"
   - Processor: URLDownloader
   - Processor: EndOfCheckPhase
 ...

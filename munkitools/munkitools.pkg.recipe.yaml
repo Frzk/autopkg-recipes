@@ -9,53 +9,53 @@ ParentRecipe: com.github.frzk.download.munkitools
 Process:
   - Processor: FlatPkgUnpacker
     Arguments:
-      flat_pkg_path: %pathname%
-      destination_path: %RECIPE_CACHE_DIR%/unpack
+      flat_pkg_path: "%pathname%"
+      destination_path: "%RECIPE_CACHE_DIR%/unpack"
   - Processor: PkgRootCreator
     Arguments:
-      pkgroot: %RECIPE_CACHE_DIR%/repack
+      pkgroot: "%RECIPE_CACHE_DIR%/repack"
   - Processor: FileFinder
     Arguments:
-      pattern: %RECIPE_CACHE_DIR%/unpack/munkitools_core*.pkg
+      pattern: "%RECIPE_CACHE_DIR%/unpack/munkitools_core*.pkg"
   - Processor: FlatPkgPacker
     Arguments:
-      source_flatpkg_dir: %found_filename%
-      destination_pkg: %RECIPE_CACHE_DIR%/repack/munkitools_core.pkg
+      source_flatpkg_dir: "%found_filename%"
+      destination_pkg: "%RECIPE_CACHE_DIR%/repack/munkitools_core.pkg"
   - Processor: FileFinder
     Arguments:
-      pattern: %RECIPE_CACHE_DIR%/unpack/munkitools_admin*.pkg
+      pattern: "%RECIPE_CACHE_DIR%/unpack/munkitools_admin*.pkg"
   - Processor: FlatPkgPacker
     Arguments:
-      source_flatpkg_dir: %found_filename%
-      destination_pkg: %RECIPE_CACHE_DIR%/repack/munkitools_admin.pkg
+      source_flatpkg_dir: "%found_filename%"
+      destination_pkg: "%RECIPE_CACHE_DIR%/repack/munkitools_admin.pkg"
   - Processor: FileFinder
     Arguments:
-      pattern: %RECIPE_CACHE_DIR%/unpack/munkitools_app[.-]*pkg
+      pattern: "%RECIPE_CACHE_DIR%/unpack/munkitools_app[.-]*pkg"
   - Processor: FlatPkgPacker
     Arguments:
-      source_flatpkg_dir: %found_filename%
-      destination_pkg: %RECIPE_CACHE_DIR%/repack/munkitools_app.pkg
+      source_flatpkg_dir: "%found_filename%"
+      destination_pkg: "%RECIPE_CACHE_DIR%/repack/munkitools_app.pkg"
   - Processor: FileFinder
     Arguments:
-      pattern: %RECIPE_CACHE_DIR%/unpack/munkitools_app_usage*.pkg
+      pattern: "%RECIPE_CACHE_DIR%/unpack/munkitools_app_usage*.pkg"
   - Processor: FlatPkgPacker
     Arguments:
-      source_flatpkg_dir: %found_filename%
-      destination_pkg: %RECIPE_CACHE_DIR%/repack/munkitools_app_usage.pkg
+      source_flatpkg_dir: "%found_filename%"
+      destination_pkg: "%RECIPE_CACHE_DIR%/repack/munkitools_app_usage.pkg"
   - Processor: FileFinder
     Arguments:
-      pattern: %RECIPE_CACHE_DIR%/unpack/munkitools_launchd*.pkg
+      pattern: "%RECIPE_CACHE_DIR%/unpack/munkitools_launchd*.pkg"
   - Processor: FlatPkgPacker
     Arguments:
-      source_flatpkg_dir: %found_filename%
-      destination_pkg: %RECIPE_CACHE_DIR%/repack/munkitools_launchd.pkg
+      source_flatpkg_dir: "%found_filename%"
+      destination_pkg: "%RECIPE_CACHE_DIR%/repack/munkitools_launchd.pkg"
   - Processor: FileFinder
     Arguments:
-      pattern: %RECIPE_CACHE_DIR%/unpack/munkitools_python*.pkg
+      pattern: "%RECIPE_CACHE_DIR%/unpack/munkitools_python*.pkg"
   - Processor: PkgExtractor
     Arguments:
-      pkg_path: %found_filename%
-      extract_root: %RECIPE_CACHE_DIR%/unpack/python
+      pkg_path: "%found_filename%"
+      extract_root: "%RECIPE_CACHE_DIR%/unpack/python"
 #  - Processor: PythonCodeSigner
 #    Arguments:
 #      files:
@@ -65,6 +65,6 @@ Process:
 #        - 
 #  - Processor: FlatPkgPacker
 #    Arguments:
-#      source_flatpkg_dir: %RECIPE_CACHE_DIR%/unpack/python
-#      destination_pkg: %RECIPE_CACHE_DIR%/repack/munkitools_python.pkg
+#      source_flatpkg_dir: "%RECIPE_CACHE_DIR%/unpack/python"
+#      destination_pkg: "%RECIPE_CACHE_DIR%/repack/munkitools_python.pkg"
 ...
