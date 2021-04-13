@@ -1,6 +1,6 @@
 ---
 Description: Recipe stub for any Shared Processors in this directory.
-Identifier: com.github.Frzk.SharedProcessors
+Identifier: com.github.Frzk.autopkg-recipes.SharedProcessors
 Input: {}
 MinimumVersion: "2.3"
 Process: []
