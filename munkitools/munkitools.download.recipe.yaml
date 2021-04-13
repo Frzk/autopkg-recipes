@@ -2,8 +2,8 @@
 Description: Downloads the latest version of Munki from GitHub.
 Identifier: com.github.frzk.download.munkitools
 Input:
-  INCLUDE_PRERELEASES: 
-MinimumVersion: 2.3
+  INCLUDE_PRERELEASES: ""
+MinimumVersion: "2.3"
 Process:
   - Processor: GitHubReleasesInfoProvider
     Arguments:

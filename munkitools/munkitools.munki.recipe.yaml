@@ -1,14 +1,126 @@
 ---
-Description: Downloads Munki from GitHub, creates a package from it and imports it into Munki. The embedded Python framework will be codesigned.
+Description: Downloads Munki from GitHub, creates several packages from it and imports them into Munki. The embedded Python framework will be codesigned.
 Identifier: com.github.frzk.munki.munkitools
 Input:
-  INCLUDE_PRERELEASES: 
+  SIGNING_CERT: ""
+  #
+  MUNKI_CATALOG: "testing"
+  MUNKI_CATEGORY: "development"
   MUNKI_REPO_SUBDIR: apps/munkitools
-MinimumVersion: 2.3
+  MUNKI_ICON: ""
+  #
+  MUNKI_CORE_NAME: "munkitools_core"
+  MUNKI_CORE_DISPLAYNAME: "Managed Software Center core tools"
+  #
+  MUNKI_ADMIN_NAME: "munkitools_admin"
+  MUNKI_ADMIN_DISPLAY_NAME: "Managed Software Center admin tools"
+  #
+  MUNKI_APP_NAME: "munkitools_app"
+  MUNKI_APP_DISPLAY_NAME: "Managed Software Center"
+  #
+  MUNKI_APP_USAGE_NAME: "munkitools_app_usage"
+  MUNKI_APP_USAGE_DISPLAYNAME: "Managed Software Center app usage"
+  #
+  MUNKI_LAUNCHD_NAME: "munkitools_launchd"
+  MUNKI_LAUNCHD_DISPLAYNAME: "Managed Software Center launchd files."
+  #
+  MUNKI_PYTHON_NAME: "munkitools_python"
+  MUNKI_PYTHON_DISPLAYNAME: "Managed Software Center embedded Python"
+  #
+  INCLUDE_PRERELEASES: ""
+MinimumVersion: "2.3"
 ParentRecipe: com.github.frzk.pkg.munkitools
 Process:
   - Processor: MunkiImporter
     Arguments:
-      pkg_path: "%pkg_path%"
+      pkg_path: "%RECIPE_CACHE_DIR%/repack/munkitools_core.pkg"
       repo_subdirectory: "%MUNKI_REPO_SUBDIR%"
+      pkginfo:
+        catalogs:
+          - "%MUNKI_CATALOG%"
+        category: "%MUNKI_CATEGORY%"
+        display_name: "%MUNKI_CORE_DISPLAYNAME"
+        description: "Core command line tools used by Managed Software Center"
+        name: "%MUNKI_CORE_NAME%"
+        icon_name: "%MUNKI_ICON%"
+        minimum_os_version: "10.11"
+        requires:
+          - "%MUNKI_PYTHON_NAME%"
+          - "%MUNKI_LAUNCHD_NAME%"
+        unattended_install: true
+  - Processor: MunkiImporter
+    Arguments:
+      pkg_path: "%RECIPE_CACHE_DIR%/repack/munkitools_admin.pkg"
+      repo_subdirectory: "%MUNKI_REPO_SUBDIR%"
+      pkginfo:
+        catalogs:
+          - "%MUNKI_CATALOG%"
+        category: "%MUNKI_CATEGORY%"
+        display_name: "%MUNKI_ADMIN_DISPLAYNAME%"
+        description: "Command line Managed Software Center admin tools."
+        name: "%MUNKI_ADMIN_NAME%"
+        icon_name: "%MUNKI_ICON%"
+        minimum_os_version: "10.11"
+        requires:
+          - "%MUNKI_CORE_NAME%"
+        unattended_install: true
+  - Processor: MunkiImporter
+    Arguments:
+      pkg_path: "%RECIPE_CACHE_DIR%/repack/munkitools_app.pkg"
+      repo_subdirectory: "%MUNKI_REPO_SUBDIR%"
+      pkginfo:
+        catalogs:
+          - "%MUNKI_CATALOG%"
+        category: "%MUNKI_CATEGORY%"
+        display_name: "%MUNKI_APP_DISPLAYNAME%"
+        description: "Managed Software Center application."
+        name: "%MUNKI_APP_NAME%"
+        icon_name: "%MUNKI_ICON%"
+        minimum_os_version: "10.11"
+        requires:
+          - "%MUNKI_CORE_NAME%"
+        unattended_install: true
+  - Processor: MunkiImporter
+    Arguments:
+      pkg_path: "%RECIPE_CACHE_DIR%/repack/munkitools_app_usage.pkg"
+      repo_subdirectory: "%MUNKI_REPO_SUBDIR%"
+      pkginfo:
+        catalogs:
+          - "%MUNKI_CATALOG%"
+        category: "%MUNKI_CATEGORY%"
+        display_name: "%MUNKI_APP_USAGE_DISPLAYNAME%"
+        description: "Application usage statistics for Managed Software Center."
+        name: "%MUNKI_APP_USAGE_NAME%"
+        icon_name: "%MUNKI_ICON%"
+        minimum_os_version: "10.11"
+        requires:
+          - "%MUNKI_CORE_NAME%"
+        unattended_install: true
+  - Processor: MunkiImporter
+    Arguments:
+      pkg_path: "%RECIPE_CACHE_DIR%/repack/munkitools_launchd.pkg"
+      repo_subdirectory: "%MUNKI_REPO_SUBDIR%"
+      pkginfo:
+        catalogs:
+          - "%MUNKI_CATALOG%"
+        category: "%MUNKI_CATEGORY%"
+        display_name: "%MUNKI_LAUNCHD_DISPLAYNAME%"
+        description: "launchd configuration files used by Managed Software Center."
+        name: "%MUNKI_LAUNCHD_NAME%"
+        icon_name: "%MUNKI_ICON%"
+        minimum_os_version: "10.11"
+  - Processor: MunkiImporter
+    Arguments:
+      pkg_path: "%RECIPE_CACHE_DIR%/repack/munkitools_python.pkg"
+      repo_subdirectory: "%MUNKI_REPO_SUBDIR%"
+      pkginfo:
+        catalogs:
+          - "%MUNKI_CATALOG%"
+        category: "%MUNKI_CATEGORY%"
+        display_name: "%MUNKI_PYTHON_DISPLAYNAME%"
+        description: "Embedded Python tools used by Managed Software Center."
+        name: "%MUNKI_PYTHON_NAME%"
+        icon_name: "%MUNKI_ICON%"
+        minimum_os_version: "10.11"
+        unattended_install: true
 ...

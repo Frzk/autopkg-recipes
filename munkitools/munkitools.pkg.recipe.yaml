@@ -2,9 +2,10 @@
 Description: Downloads Munki from GitHub and creates a package from it. The embedded Python framework will be codesigned.
 Identifier: com.github.frzk.pkg.munkitools
 Input:
-  INCLUDE_PRERELEASES: 
+  SIGNING_CERT: ""
   MUNKI_REPO_SUBDIR: apps/munkitools
-MinimumVersion: 2.3
+  INCLUDE_PRERELEASES: ""
+MinimumVersion: "2.3"
 ParentRecipe: com.github.frzk.download.munkitools
 Process:
   - Processor: FlatPkgUnpacker
@@ -14,6 +15,7 @@ Process:
   - Processor: PkgRootCreator
     Arguments:
       pkgroot: "%RECIPE_CACHE_DIR%/repack"
+      pkgdirs: {}
   - Processor: FileFinder
     Arguments:
       pattern: "%RECIPE_CACHE_DIR%/unpack/munkitools_core*.pkg"
@@ -52,19 +54,16 @@ Process:
   - Processor: FileFinder
     Arguments:
       pattern: "%RECIPE_CACHE_DIR%/unpack/munkitools_python*.pkg"
-  - Processor: PkgExtractor
+  - Processor: PkgPayloadUnpacker
     Arguments:
-      pkg_path: "%found_filename%"
-      extract_root: "%RECIPE_CACHE_DIR%/unpack/python"
-#  - Processor: PythonCodeSigner
-#    Arguments:
-#      files:
-#        - 
-#        - 
-#        - 
-#        - 
-#  - Processor: FlatPkgPacker
-#    Arguments:
-#      source_flatpkg_dir: "%RECIPE_CACHE_DIR%/unpack/python"
-#      destination_pkg: "%RECIPE_CACHE_DIR%/repack/munkitools_python.pkg"
+      pkg_payload_path: "%found_filename%/Payload"
+      destination_path: "%RECIPE_CACHE_DIR%/unpack/python"
+  - Processor: PythonCodeSigner
+    Arguments:
+      signing_cert: "%SIGNING_CERT%"
+      python_framework_path: "%RECIPE_CACHE_DIR%/unpack/python/usr/local/munki/Python.framework/Versions/Current"
+  - Processor: FlatPkgPacker
+    Arguments:
+      source_flatpkg_dir: "%RECIPE_CACHE_DIR%/unpack/python"
+      destination_pkg: "%RECIPE_CACHE_DIR%/repack/munkitools_python.pkg"
 ...
