@@ -65,11 +65,12 @@ class PythonCodeSigner(Processor):
     def main(self):
         """
         """
-        print(self.env)
         self.cert = self.env["signing_cert"]
         self.python_path = self.env["python_framework_path"]
 
-        asyncio.run(self.scheduler())
+        if self.cert:
+            asyncio.run(self.scheduler())
+        # else we do nothing.
 
     async def scheduler(self):
         """
