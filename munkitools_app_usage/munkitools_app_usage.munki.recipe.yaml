@@ -1,0 +1,34 @@
+---
+Description: Downloads Munki from GitHub, creates a package for the usage app and imports it into Munki.
+Identifier: com.github.frzk.munki.munkitools_app_usage
+Input:
+  MUNKI_CATALOG: "testing"
+  MUNKI_CATEGORY: "development"
+  MUNKI_REPO_SUBDIR: apps/munkitools
+  MUNKI_ICON: ""
+  #
+  MUNKI_APP_USAGE_DISPLAYNAME: "Managed Software Center app usage"
+  #
+  INCLUDE_PRERELEASES: ""
+MinimumVersion: "2.3"
+ParentRecipe: com.github.frzk.pkg.munkitools_app_usage
+Process:
+  - Processor: MunkiImporter
+    Arguments:
+      pkg_path: "%RECIPE_CACHE_DIR%/repack/munkitools_app_usage.pkg"
+      repo_subdirectory: "%MUNKI_REPO_SUBDIR%"
+      pkginfo:
+        catalogs:
+          - "%MUNKI_CATALOG%"
+        category: "%MUNKI_CATEGORY%"
+        display_name: "%MUNKI_APP_USAGE_DISPLAYNAME%"
+        description: "Application usage statistics for Managed Software Center."
+        name: munkitools_app_usage
+        icon_name: "%MUNKI_ICON%"
+        minimum_os_version: "10.11"
+        requires:
+          - munkitools_python
+          - munkitools_core
+          - munkitools_launchd
+        unattended_install: true
+...

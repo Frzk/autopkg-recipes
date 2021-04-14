@@ -1,0 +1,33 @@
+---
+Description: Downloads Munki from GitHub, creates a package for the admin tools and imports it into Munki.
+Identifier: com.github.frzk.munki.munkitools_admin
+Input:
+  MUNKI_CATALOG: "testing"
+  MUNKI_CATEGORY: "development"
+  MUNKI_REPO_SUBDIR: apps/munkitools
+  MUNKI_ICON: ""
+  #
+  MUNKI_ADMIN_DISPLAY_NAME: "Managed Software Center admin tools"
+  #
+  INCLUDE_PRERELEASES: ""
+MinimumVersion: "2.3"
+ParentRecipe: com.github.frzk.pkg.munkitools_admin
+Process:
+  - Processor: MunkiImporter
+    Arguments:
+      pkg_path: "%RECIPE_CACHE_DIR%/repack/munkitools_admin.pkg"
+      repo_subdirectory: "%MUNKI_REPO_SUBDIR%"
+      pkginfo:
+        catalogs:
+          - "%MUNKI_CATALOG%"
+        category: "%MUNKI_CATEGORY%"
+        display_name: "%MUNKI_ADMIN_DISPLAYNAME%"
+        description: "Command line Managed Software Center admin tools."
+        name: munkitools_admin
+        icon_name: "%MUNKI_ICON%"
+        minimum_os_version: "10.11"
+        requires:
+          - munkitools_python
+          - munkitools_core
+        unattended_install: true
+...

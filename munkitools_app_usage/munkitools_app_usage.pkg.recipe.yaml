@@ -1,0 +1,25 @@
+---
+Description: Downloads Munki from GitHub and creates a package for the usage app.
+Identifier: com.github.frzk.pkg.munkitools_app_usage
+Input:
+  MUNKI_REPO_SUBDIR: apps/munkitools
+  INCLUDE_PRERELEASES: ""
+MinimumVersion: "2.3"
+ParentRecipe: com.github.frzk.download.munkitools_main
+Process:
+  - Processor: FlatPkgUnpacker
+    Arguments:
+      flat_pkg_path: "%pathname%"
+      destination_path: "%RECIPE_CACHE_DIR%/unpack"
+  - Processor: PkgRootCreator
+    Arguments:
+      pkgroot: "%RECIPE_CACHE_DIR%/repack"
+      pkgdirs: {}
+  - Processor: FileFinder
+    Arguments:
+      pattern: "%RECIPE_CACHE_DIR%/unpack/munkitools_app_usage*.pkg"
+  - Processor: FlatPkgPacker
+    Arguments:
+      source_flatpkg_dir: "%found_filename%"
+      destination_pkg: "%RECIPE_CACHE_DIR%/repack/munkitools_app_usage.pkg"
+...
