@@ -25,7 +25,7 @@ class PackageInfoReader(Processor):
         "pkg_id": {
             "description": "Package identifier of the package."
         },
-        "version": {
+        "pkg_version": {
             "description": "Version of the package."
         }
     }
@@ -38,22 +38,18 @@ class PackageInfoReader(Processor):
         except IOError as err:
             raise ProcessorError(err)
 
-        pkginfo = tree.find("pkg-info")
+        pkginfo = tree.getroot()
 
         if pkginfo is not None:
-            try:
-                self.env["version"] = pkginfo.attrib["version"]
-                self.output(f"Found package version: {self.env['version']}.")
-            except KeyError as e:
-                pass
+            self.env["pkg_version"] = pkginfo.get("version", None)
+            self.env["pkg_id"] = pkginfo.get("identifier", None)
 
-            try:
-                self.env["pkg_id"] = pkginfo.attrib["identifier"]
+            if self.env["pkg_version"] is not None:
+                self.output(f"Found package version: {self.env['pkg_version']}.")
+
+            if self.env["pkg_id"] is not None:
                 self.output(f"Found package identifier: {self.env['pkg_id']}.")
-            except KeyError as e:
-                pass
-
 
 if __name__ == "__main__":
-    p = PackageInfoVersioner()
+    p = PackageInfoReader()
     p.execute_shell()
