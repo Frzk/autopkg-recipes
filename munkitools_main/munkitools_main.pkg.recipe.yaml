@@ -55,7 +55,7 @@ Process:
     Arguments:
       pkg_payload_path: "%found_filename%/Payload"
       destination_path: "%RECIPE_CACHE_DIR%/unpack/python"
-  - Processor: com.github.Frzk.autopkg-recipes.SharedProcessors/PythonCodeSigner
+  - Processor: com.github.frzk.autopkg-recipes.SharedProcessors/PythonCodeSigner
     Arguments:
       signing_cert: "%SIGNING_CERT%"
       python_framework_path: "%RECIPE_CACHE_DIR%/unpack/python/usr/local/munki/Python.framework/Versions/Current"
