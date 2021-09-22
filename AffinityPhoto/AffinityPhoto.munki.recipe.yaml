@@ -1,0 +1,25 @@
+---
+Descrition: Downloads and imports the latest version of Serif Affinity Photo in Munki.
+Identifier: com.github.frzk.munki.AffinityPhoto
+Input:
+  NAME: "affinity_photo"
+  LANG: "fr"
+  MUNKI_REPO_SUBDIR: "apps/Serif"
+  pkginfo:
+    catalogs:
+      - testing
+    category: "Graphics"
+    description: "Affinity Photo is a professional and powerful raster graphics editor developed by Serif."
+    developer: "Serif"
+    display_name: "Affinity Photo"
+    name: "%NAME%"
+    minimum_os_version: "10.9"
+    unattended_install: yes
+MinimumVersion: "2.3"
+ParentRecipe: com.github.frzk.download.AffinityPhoto
+Process:
+  - Processor: MunkiImporter
+    Arguments:
+      pkg_path: "%pathname%"
+      repo_subdirectory: "%MUNKI_REPO_SUBDIR%"
+...

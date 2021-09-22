@@ -1,0 +1,23 @@
+---
+Description: Downloads the latest version of Serif Affinity Photo Pro.
+Identifier: com.github.frzk.download.AffinityPhoto
+Input:
+  NAME: "affinity_photo"
+  LANG: "fr"
+MinimumVersion: "2.3"
+Process:
+  - Processor: URLTextSearcher
+    Arguments:
+      re_pattern: ((?P<url>https://d1gl0nrskhax8d\.cloudfront\.net/macos/photo/\d+(\.\d*){2,}/affinity-photo-(\d+(\.\d*){2,})\.dmg)\?Expires=(?P<expires>\d+)&amp;Signature=(?P<signature>[\w\~\-]+)&amp;Key-Pair-Id=(?P<keypair>[\w]+))
+      result_output_var_name: url
+      url: "https://store.serif.com/%LANG%/update/macos/photo/1/"
+  - Processor: URLDownloader
+    Arguments:
+      url: "%url%?Expires=%expires%&Signature=%signature%&Key-Pair-Id=%keypair%"
+      filename: "%NAME%.dmg"
+  - Processor: EndOfCheckPhase
+  - Processor: CodeSignatureVerifier
+    Arguments:
+      input_path: "%pathname%/Affinity Photo.app"
+      requirement: "anchor apple generic and identifier \"com.seriflabs.affinityphoto\" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = \"6LVTQB9699\")"
+...
