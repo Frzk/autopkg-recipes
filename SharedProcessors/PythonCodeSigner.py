@@ -89,9 +89,11 @@ class PythonCodeSigner(Processor):
 
         # We need to codesign the executables files in `bin` and `lib`:
         for e in execs:
-            l = [f for f in os.listdir(e) \
-                 if os.path.isfile(f) and os.access(f, os.X_OK)]
-            files = [*files, *l]
+            for f in os.listdir(e):
+                fp = os.path.join(e, f)
+
+                if os.path.isfile(fp) and os.access(fp, os.X_OK):
+                    files.append(fp)
 
         # We also need to codesign a few librairies:
         for p in patterns:
