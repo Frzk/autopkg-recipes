@@ -44,6 +44,20 @@ Process:
   - Processor: FileFinder
     Arguments:
       pattern: "%RECIPE_CACHE_DIR%/unpack/munkitools_python*.pkg"
+  - Processor: FlatPkgPacker
+    Arguments:
+      source_flatpkg_dir: "%found_filename%"
+      destination_pkg: "%RECIPE_CACHE_DIR%/munki_python.pkg"
+  # Read package version and identifier
+  - Processor: FlatPkgUnpacker
+    Arguments:
+      flat_pkg_path: "%RECIPE_CACHE_DIR%/munki_python.pkg"
+      destination_path: "%RECIPE_CACHE_DIR%/unpacked"
+      skip_payload: yes
+  - Processor: com.github.frzk.autopkg-recipes.SharedProcessors/PackageInfoReader
+    Arguments:
+      pkginfo_path: "%RECIPE_CACHE_DIR%/unpacked/PackageInfo"
+  # Unpack package payload and sign files
   - Processor: PkgPayloadUnpacker
     Arguments:
       pkg_payload_path: "%found_filename%/Payload"
@@ -52,8 +66,15 @@ Process:
     Arguments:
       signing_cert: "%SIGNING_CERT%"
       python_framework_path: "%RECIPE_CACHE_DIR%/unpack/python/usr/local/munki/Python.framework/Versions/Current"
-  - Processor: FlatPkgPacker
+  # Repack the files
+  - Processor: PkgCreator
     Arguments:
-      source_flatpkg_dir: "%RECIPE_CACHE_DIR%/unpack/python"
-      destination_pkg: "%RECIPE_CACHE_DIR%/repack/munkitools_python.pkg"
+      pkg_request:
+        pkgroot: "%RECIPE_CACHE_DIR%/unpack/python"
+        pkgdir: "%RECIPE_CACHE_DIR%/repack"
+        pkgname: "munkitools_python"
+        type: flat
+        id: "%pkg_id%"
+        version: "%pkg_version%"
+        options: purge_ds_store
 ...

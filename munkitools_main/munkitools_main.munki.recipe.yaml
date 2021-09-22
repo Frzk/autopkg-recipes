@@ -10,7 +10,7 @@ Input:
   MUNKI_ICON: ""
   #
   MUNKI_CORE_DISPLAYNAME: "Managed Software Center core tools"
-  MUNKI_APP_DISPLAY_NAME: "Managed Software Center"
+  MUNKI_APP_DISPLAYNAME: "Managed Software Center"
   MUNKI_LAUNCHD_DISPLAYNAME: "Managed Software Center launchd files."
   MUNKI_PYTHON_DISPLAYNAME: "Managed Software Center embedded Python"
   #
