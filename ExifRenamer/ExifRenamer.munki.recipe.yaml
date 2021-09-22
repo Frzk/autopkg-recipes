@@ -1,0 +1,24 @@
+---
+Descrition: Downloads and imports the latest version of ExifRenamer in Munki.
+Identifier: com.github.frzk.munki.ExifRenamer
+Input:
+  NAME: "exifrenamer"
+  MUNKI_REPO_SUBDIR: "apps/qdev.de"
+  pkginfo:
+    catalogs:
+      - testing
+    category: "Graphics"
+    description: "ExifRenamer is a tool for renaming digital photos, movie and audio clips of almost every camera vendor."
+    developer: "Stefan ROBL"
+    display_name: "ExifRenamer"
+    name: "%NAME%"
+    minimum_os_version: "10.9"
+    unattended_install: yes
+MinimumVersion: "2.3"
+ParentRecipe: com.github.frzk.download.ExifRenamer
+Process:
+  - Processor: MunkiImporter
+    Arguments:
+      pkg_path: "%pathname%"
+      repo_subdirectory: "%MUNKI_REPO_SUBDIR%"
+...

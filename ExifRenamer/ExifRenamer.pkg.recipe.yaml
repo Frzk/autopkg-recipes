@@ -1,0 +1,12 @@
+---
+Description: Downloads the latest version of ExifRenamer and builds a package.
+Identifier: com.github.frzk.pkg.ExifRenamer
+Input:
+  NAME: "exifrenamer"
+MinimumVersion: "2.3"
+ParentRecipe: com.github.frzk.download.ExifRenamer
+Process:
+  - Processor: AppPkgCreator
+    Arguments:
+      app_path: "%pathname%/ExifRenamer.app"
+...
