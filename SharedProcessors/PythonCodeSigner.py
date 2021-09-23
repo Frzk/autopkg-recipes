@@ -114,7 +114,7 @@ class PythonCodeSigner(Processor):
                 self.output(stdout_data.decode("utf-8"), verbose_level=2)
 
             if stderr_data:
-                self.output(stderr_data.decode("utf-8"), verbose_level=1
+                self.output(stderr_data.decode("utf-8"), verbose_level=1)
 
             queue.task_done()
 
