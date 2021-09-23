@@ -11,38 +11,6 @@ from autopkglib import Processor, ProcessorError
 from asyncio.subprocess import PIPE
 
 
-class ShellCommander(object):
-    """
-    """
-    async def start(self, cmd, cmd_args=[], input_bytes=None):
-        """
-        """
-        args = __class__.escape_args(*cmd_args)
-
-        command = f"{cmd} {args}"
-
-        proc = await asyncio.create_subprocess_shell(command, stdin=PIPE,
-                                                     stdout=PIPE, stderr=PIPE)
-
-        stdout_data, stderr_data = await proc.communicate(input_bytes)
-
-        if stdout_data:
-            print(stdout_data.decode("utf-8"))
-
-        if stderr_data:
-            print(stderr_data.decode("utf-8"), file=sys.stderr)
-
-        return True if proc.returncode is 0 else False
-
-    @classmethod
-    def escape_args(cls, *args):
-        """
-        """
-        escaped_args = [shlex.quote(str(arg)) for arg in args]
-
-        return " ".join(escaped_args)
-
-
 class PythonCodeSigner(Processor):
     """
     Use `codesign` to sign the Python framework."
@@ -61,6 +29,9 @@ class PythonCodeSigner(Processor):
     }
 
     output_variables = {}
+
+    cmd = "/usr/bin/codesign"
+    cmd_args = ["--force", "--deep", "--verbose", "-s"]
 
     def main(self):
         """
@@ -122,15 +93,38 @@ class PythonCodeSigner(Processor):
     async def worker(self, queue):
         """
         """
+        cargs = self.cmd_args.copy()
+        cargs.append(self.cert)
+
         while not queue.empty():
             filename = await queue.get()
 
-            args = ["--force", "--deep", "--verbose", "-s", self.cert, filename]
+            cargs.append(filename)
+            args = __class__.espace_args(*cargs)
+            command = f"{self.cmd} {args}"
 
-            p = ShellCommander()
-            r = await p.start("/usr/bin/codesign", args)
+            proc = await asyncio.create_subprocess_shell(command,
+                                                         stdin=PIPE,
+                                                         stdout=PIPE,
+                                                         stderr=PIPE)
+
+            stdout_data, stderr_data = await proc.communicate(None)
+
+            if stdout_data:
+                self.output(stdout_data.decode("utf-8"), verbose_level=2)
+
+            if stderr_data:
+                self.output(stderr_data.decode("utf-8"), verbose_level=1
 
             queue.task_done()
+
+    @classmethod
+    def escape_args(cls, *args):
+        """
+        """
+        escaped_args = [shlex.quote(str(arg)) for arg in args]
+
+        return " ".join(escaped_args)
 
 
 if __name__ == "__main__":
