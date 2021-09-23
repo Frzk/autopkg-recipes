@@ -100,7 +100,7 @@ class PythonCodeSigner(Processor):
             filename = await queue.get()
 
             cargs.append(filename)
-            args = __class__.espace_args(*cargs)
+            args = __class__.escape_args(*cargs)
             command = f"{self.cmd} {args}"
 
             proc = await asyncio.create_subprocess_shell(command,
