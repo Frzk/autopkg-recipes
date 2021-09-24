@@ -1,5 +1,5 @@
 ---
-Identifier: com;github.frzk.download.GoogleEarthPro
+Identifier: com.github.frzk.download.GoogleEarthPro
 Description: Downloads the latest Google Earth Pro disk image.
 Input:
   NAME: google_earth_pro
