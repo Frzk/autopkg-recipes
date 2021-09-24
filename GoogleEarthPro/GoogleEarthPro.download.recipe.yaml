@@ -1,0 +1,26 @@
+---
+Identifier: com;github.frzk.download.GoogleEarthPro
+Description: Downloads the latest Google Earth Pro disk image.
+Input:
+  NAME: google_earth_pro
+  SEARCH_URL: https://support.google.com/earth/answer/168344
+  SEARCH_PATTERN: (?P<url>https://.*/googleearthpromac.*\.dmg)
+MinimumVersion: 2.3
+Process:
+  - Processor: URLTextSearcher
+    Arguments:
+      url: "%SEARCH_URL%"
+      re_pattern: "%SEARCH_PATTERN%"
+  - Processor: URLDownloader
+    Arguments:
+      filename: "%NAME%.dmg"
+      url: "%url%"
+  - Processor: EndOfCheckPhase
+  - Processor: CodeSignatureVerifier
+    Arguments:
+      input_path: "%pathname%/*Earth Pro*.pkg"
+      expected_authority_names:
+        - "Developer ID Installer: Google LLC (EQHXZ8M8AV)"
+        - "Developer ID Certification Authority"
+        - "Apple Root CA"
+...

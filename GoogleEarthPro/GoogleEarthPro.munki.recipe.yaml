@@ -1,0 +1,28 @@
+---
+Identifier: com.github.frzk.munki.GoogleEarthPro
+Description: Downloads, packages and imports the latest version of Google Earth Pro.
+Input:
+  MUNKI_REPO_SUBDIR: "apps/google"
+  NAME: "google_earth_pro"
+  pkginfo:
+    catalogs:
+      - testing
+    description: "Google Earth Pro allows one to take a virtual journey to any location in the world. To explore 3D buildings, imagery, and terrain. To find cities, places and local businesses."
+    display_name: "Google Earth Pro"
+    name: "%NAME%"
+    category: "GIS"
+    developer: "Google"
+    unattended_install: yes
+    localized_strings:
+      fallback_locale: en
+      fr:
+        category: "SIG"
+        description: "Google Earth Pro permet de parcourir le monde entier vu du ciel avec les images satellite, le relief de l'ensemble du globe en 3D et les bâtiments 3D dans des centaines de villes de divers pays. Google Earth Pro propose une déclinaison de Google Earth orientée spécifiquement en direction des professionnels afin d'augmenter la productivité, de communiquer visuellement et de partager des informations géographiques. Cette version supporte l'importation de données SIG, l'impression en haute résolution et la mesure de la superficie. Google Earth Pro dispose également d'un outil d'importation de feuilles de calcul, très pratique pour l'aide à la cartographie."
+MinimumVersion: 2.3
+ParentRecipe: com.github.frzk.pkg.GoogleEarthPro
+Process:
+  - Processor: MunkiImporter
+    Arguments:
+      pkg_path: "%pkg_path%"
+      repo_subdirectory: "%MUNKI_REPO_SUBDIR%"
+...
