@@ -5,7 +5,7 @@ Input:
   NAME: google_earth_pro
   SEARCH_URL: https://support.google.com/earth/answer/168344
   SEARCH_PATTERN: (?P<url>https://.*/googleearthpromac.*\.dmg)
-MinimumVersion: 2.3
+MinimumVersion: "2.3"
 Process:
   - Processor: URLTextSearcher
     Arguments:

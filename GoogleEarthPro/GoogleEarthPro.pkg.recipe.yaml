@@ -3,7 +3,7 @@ Identifier: com.github.frzk.pkg.GoogleEarthPro
 Description: Downloads the latest Google Earth disk image and extracts a versioned package out of it.
 Input:
   NAME: google_earth_pro
-MinimumVersion: 2.3
+MinimumVersion: "2.3"
 ParentRecipe: com.github.frzk.download.GoogleEarthPro
 Process:
   - Processor: FlatPkgUnpacker

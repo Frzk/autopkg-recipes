@@ -14,11 +14,11 @@ Input:
     developer: "Google"
     unattended_install: yes
     localized_strings:
-      fallback_locale: en
+      fallback_locale: "en"
       fr:
         category: "SIG"
         description: "Google Earth Pro permet de parcourir le monde entier vu du ciel avec les images satellite, le relief de l'ensemble du globe en 3D et les bâtiments 3D dans des centaines de villes de divers pays. Google Earth Pro propose une déclinaison de Google Earth orientée spécifiquement en direction des professionnels afin d'augmenter la productivité, de communiquer visuellement et de partager des informations géographiques. Cette version supporte l'importation de données SIG, l'impression en haute résolution et la mesure de la superficie. Google Earth Pro dispose également d'un outil d'importation de feuilles de calcul, très pratique pour l'aide à la cartographie."
-MinimumVersion: 2.3
+MinimumVersion: "2.3"
 ParentRecipe: com.github.frzk.pkg.GoogleEarthPro
 Process:
   - Processor: MunkiImporter
