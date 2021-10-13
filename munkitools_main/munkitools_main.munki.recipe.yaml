@@ -26,7 +26,7 @@ Process:
         catalogs:
           - "%MUNKI_CATALOG%"
         category: "%MUNKI_CATEGORY%"
-        display_name: "%MUNKI_CORE_DISPLAYNAME"
+        display_name: "%MUNKI_CORE_DISPLAYNAME%"
         description: "Core command line tools used by Managed Software Center"
         name: munkitools_core
         icon_name: "%MUNKI_ICON%"
