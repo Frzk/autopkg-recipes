@@ -1,0 +1,13 @@
+---
+Description: Downloads the latest version of Chromium.
+Identifier: com.github.frzk.download.Chromium
+Input:
+  NAME: "chromium"
+MinimumVersion: "2.3"
+Process:
+  - Processor: URLDownloader
+    Arguments:
+      url: "https://download-chromium.appspot.com/dl/Mac?type=snapshots"
+      filename: "%NAME%.zip"
+  - Processor: EndOfCheckPhase
+...

@@ -1,0 +1,24 @@
+---
+Description: Downloads and imports the latest version of Chromium in Munki.
+Identifier: com.github.frzk.munki.Chromium
+Input:
+  NAME: "chromium"
+  MUNKI_REPO_SUBDIR: "apps/chromium"
+  pkginfo:
+    catalogs:
+      - testing
+    category: "Web"
+    description: "Chromium is an open-source browser project that aims to build a safer, faster, and more stable way for all Internet users to experience the web."
+    developer: "The Chromium Projects"
+    display_name: "Chromium"
+    name: "%NAME%"
+    minimum_os_version: "10.9"
+    unattended_install: yes
+MinimumVersion: "2.3"
+ParentRecipe: com.github.frzk.pkg.Chromium
+Process:
+  - Processor: MunkiImporter
+    Arguments:
+      pkg_path: "%pkg_path%"
+      repo_subdirectory: "%MUNKI_REPO_SUBDIR%"
+...

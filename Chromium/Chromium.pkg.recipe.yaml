@@ -1,0 +1,20 @@
+---
+Description: Downloads the latest version of Chromium and creates a package out of it.
+Identifier: com.github.frzk.pkg.Chromium
+Input:
+  NAME: "chromium"
+MinimumVersion: "2.3"
+ParentRecipe: com.github.frzk.download.Chromium
+Process:
+  - Processor: Unarchiver
+    Arguments:
+      archive_path: "%pathname%"
+      destination_path: "%RECIPE_CACHE_DIR%/%NAME%"
+  - Processor: Versioner
+    Arguments:
+      input_plist_path: "%RECIPE_CACHE_DIR%/%NAME%/chrome-mac/Chromium.app/Contents/Info.plist"
+  - Processor: AppPkgCreator
+    Arguments:
+      pkg_path: "%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg"
+      app_path: "%RECIPE_CACHE_DIR%/%NAME%/chrome-mac/Chromium.app"
+...
