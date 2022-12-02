@@ -1,0 +1,24 @@
+---
+Description: Downloads and imports the latest version of Idopte SCManager in Munki.
+Identifier: com.github.frzk.munki.SCManager
+Input:
+  NAME: "scmanager"
+  MUNKI_REPO_SUBDIR: "apps/idopte"
+  pkginfo:
+    catalogs:
+      - testing
+    category: "drivers"
+    description: "Idopte SCManager allows to securely use digital certificates and associated keys stored on physical supports (such as smart cards or USB tokens) or in Virtual Smart Card (I-VSC)."
+    developer: "Idopte SAS"
+    display_name: "Idopte Smart Card Manager"
+    name: "%NAME%"
+    minimum_os_version: "12.0"
+    unattended_install: yes
+MinimumVersion: "2.3"
+ParentRecipe: com.github.frzk.pkg.SCManager
+Process:
+  - Processor: MunkiImporter
+    Arguments:
+      pkg_path: "%pkg_path%"
+      repo_subdirectory: "%MUNKI_REPO_SUBDIR%"
+...

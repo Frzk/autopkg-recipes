@@ -1,0 +1,13 @@
+---
+Description: Downloads the latest version of Idopte SCManager.
+Identifier: com.github.frzk.download.SCManager
+Input:
+  NAME: "scmanager"
+MinimumVersion: "2.3"
+Process:
+  - Processor: URLDownloader
+    Arguments:
+      url: "https://formulaire.certigna.fr/idopte_macOSX.zip"
+      filename: "%NAME%.zip"
+  - Processor: EndOfCheckPhase
+...

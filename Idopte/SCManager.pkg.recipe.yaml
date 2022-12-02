@@ -1,0 +1,43 @@
+---
+Description: Downloads the latest version of Idopte SCManager and creates a package out of it.
+Identifier: com.github.frzk.pkg.SCManager
+Input:
+  NAME: "scmanager"
+MinimumVersion: "2.3"
+ParentRecipe: com.github.frzk.download.SCManager
+Process:
+  - Processor: Unarchiver
+    Arguments:
+      archive_path: "%pathname%"
+      purge_destination: yes
+      destination_path: "%RECIPE_CACHE_DIR%/%NAME%"
+  - Processor: FileFinder
+    Arguments:
+      pattern: "%RECIPE_CACHE_DIR%/%NAME%/*.dmg"
+  - Processor: FlatPkgUnpacker
+    Arguments:
+      flat_pkg_path: "%found_filename%/SCMiddleware.pkg"
+      destination_path: "%RECIPE_CACHE_DIR%/pkg_unpack"
+  - Processor: PkgPayloadUnpacker
+    Arguments:
+      pkg_payload_path: "%RECIPE_CACHE_DIR%/pkg_unpack/SCMiddleware.core.pkg/Payload"
+      destination_path: "%RECIPE_CACHE_DIR%/payload"
+      purge_destination: yes
+  - Processor: Versioner
+    Arguments:
+      input_plist_path: "%RECIPE_CACHE_DIR%/payload/Applications/Smart Card Manager.app/Contents/Info.plist"
+  - Processor: PkgCreator
+    Arguments:
+      pkg_request:
+        pkgname: "%NAME%-%version%"
+        pkgroot: "%RECIPE_CACHE_DIR%/payload"
+        version: "%version%"
+        id: "fr.idopte.SCManager"
+        options: "purge_ds_store"
+  - Processor: PathDeleter
+    Arguments:
+      path_list:
+        - "%RECIPE_CACHE_DIR%/%NAME%"
+        - "%RECIPE_CACHE_DIR%/pkg_unpack"
+        - "%RECIPE_CACHE_DIR%/payload"
+...
