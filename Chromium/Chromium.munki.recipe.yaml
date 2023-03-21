@@ -21,4 +21,8 @@ Process:
     Arguments:
       pkg_path: "%pkg_path%"
       repo_subdirectory: "%MUNKI_REPO_SUBDIR%"
+  - Processor: PathDeleter
+    Arguments:
+      path_list:
+        - "%pkg_path%"
 ...
