@@ -34,6 +34,7 @@ Process:
         version: "%version%"
         id: "fr.idopte.SCManager"
         options: "purge_ds_store"
+        scripts: "%RECIPE_CACHE_DIR%/pkg_unpack/SCMiddleware.core.pkg/Scripts"
   - Processor: PathDeleter
     Arguments:
       path_list:
