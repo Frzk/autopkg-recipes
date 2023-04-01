@@ -1,0 +1,29 @@
+---
+Description: |-
+  Downloads the latest version of QGIS, creates a new .dmg with the application and imports it into Munki.
+  The application is always renamed to 'QGIS'.
+  Override RELEASE to get the release type your want: 'pr' for the latest Point Release or 'ltr' for the latest Long Term Release.
+Identifier: com.github.frzk.munki.QGIS
+Input:
+  NAME: qgis
+  RELEASE: pr
+  SEARCH_URL: https://www.qgis.org/en/site/forusers/download.html
+  SEARCH_PATTERN: (?P<url>https://qgis\.org/downloads/macos/qgis-macos-%RELEASE%\.dmg)
+  MUNKI_REPO_SUBDIR: apps/qgis
+  pkginfo:
+    catalogs:
+      - testing
+    category: SIG
+    description: "Système d'Information Géographique open-source et multi-plateforme."
+    developer: "L'équipe de développement de QGIS"
+    display_name: QGIS
+    minimum_os_version: "10.13.0"
+    name: "%NAME%"
+    unattended_install: yes
+MinimumVersion: "2.3"
+ParentRecipe: com.github.frzk.pkg.QGIS
+Process:
+  - Processor: MunkiImporter
+    Arguments:
+      pkg_path: "%pkg_path%"
+      repo_subdirectory: "%MUNKI_REPO_SUBDIR%"

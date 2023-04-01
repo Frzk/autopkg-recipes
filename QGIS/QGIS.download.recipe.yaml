@@ -1,0 +1,24 @@
+---
+Description: |-
+  Downloads the latest version of QGIS.
+  Override RELEASE to get the release type your want: 'pr' for the latest Point Release or 'ltr' for the latest Long Term Release.
+Identifier: com.github.frzk.download.QGIS
+Input:
+  NAME: qgis
+  RELEASE: pr
+  SEARCH_URL: https://www.qgis.org/en/site/forusers/download.html
+  SEARCH_PATTERN: (?P<url>https://qgis\.org/downloads/macos/qgis-macos-%RELEASE%\.dmg)
+MinimumVersion: "2.3"
+Process:
+  - Processor: URLTextSearcher
+    Arguments:
+      url: "%SEARCH_URL%"
+      re_pattern: "%SEARCH_PATTERN%"
+  - Processor: URLDownloader
+    Arguments:
+      filename: "%NAME%-%RELEASE%.dmg"
+      url: "%url%"
+  - Processor: AppDmgVersioner
+    Arguments:
+      dmg_path: "%pathname%"
+  - Processor: EndOfCheckPhase

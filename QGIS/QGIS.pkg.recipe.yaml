@@ -1,0 +1,27 @@
+---
+Description: |-
+  Downloads the latest version of QGIS and creates a new .dmg with the application.
+  The application is always renamed to 'QGIS'.
+  Override RELEASE to get the release type your want: 'pr' for the latest Point Release or 'ltr' for the latest Long Term Release.
+Identifier: com.github.frzk.pkg.QGIS
+Input:
+  NAME: qgis
+  RELEASE: pr
+  SEARCH_URL: https://www.qgis.org/en/site/forusers/download.html
+  SEARCH_PATTERN: (?P<url>https://qgis\.org/downloads/macos/qgis-macos-%RELEASE%\.dmg)
+MinimumVersion: "2.3"
+ParentRecipe: com.github.frzk.download.QGIS
+Process:
+  - Processor: Copier
+    Arguments:
+      source_path: "%pathname%/%app_name%"
+      destination_path: "%RECIPE_CACHE_DIR%/QGIS.app"
+      overwrite: yes
+  - Processor: AppPkgCreator
+    Arguments:
+      app_path: "%RECIPE_CACHE_DIR%/QGIS.app"
+      pkg_path: "%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg"
+  - Processor: PathDeleter
+    Arguments:
+      path_list:
+        - "%RECIPE_CACHE_DIR%/QGIS.app"
