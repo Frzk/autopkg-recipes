@@ -1,0 +1,62 @@
+Description: |
+  Downloads and packages the specified version of LibreOffice with the
+  desired language pack.
+  Set VERSION to the desired version of LibreOffice.
+  Set ARCH to "aarch64" for Apple Silicon or "x86_64" for Intel.
+  Set LANGUAGE_CODE to the 2-chars language code of your choice.
+Identifier: com.github.frzk.pkg.LibreOfficeLangpack
+Input:
+  NAME: libreoffice
+  VERSION: "7.5.7"
+  ARCH: aarch64
+  LANGUAGE_CODE: fr
+MinimumVersion: "0.4.0"
+ParentRecipe: com.github.frzk.download.LibreOfficeLangpack
+Process:
+  - Processor: AppDmgVersioner
+    Arguments:
+      comment: Extracts LibreOffice.app bundle ID and version from the previously downloaded dmg.
+      dmg_path: "%app_pathname%"
+
+  - Processor: PkgRootCreator
+    Arguments:
+      pkgdirs:
+        Applications: "0775"
+      pkgroot: "%RECIPE_CACHE_DIR%/%NAME%"
+
+  - Processor: Copier
+    Arguments:
+      comment: Copy LibreOffice.app to the new package.
+      source_path: "%app_pathname%/LibreOffice.app"
+      destination_path: "%pkgroot%/Applications/LibreOffice.app"
+
+  - Processor: Copier
+    Arguments:
+      comment: Copy the language tarball to the recipe cache directory.
+      source_path: "%pathname%/LibreOffice Language Pack.app/Contents/Resources/tarball.tar.bz2"
+      destination_path: "%RECIPE_CACHE_DIR%"
+
+  - Processor: Unarchiver
+    Arguments:
+      comment: Extract the tarball content to the .app
+      archive_path: "%RECIPE_CACHE_DIR%/tarball.tar.bz2"
+      destination_path: "%RECIPE_CACHE_DIR%/%NAME%/Applications/LibreOffice.app"
+
+  - Processor: PkgCreator
+    Arguments:
+      pkg_request:
+        chown:
+          - path: Applications
+            user: root
+            group: admin
+        id: "org.libreoffice.langpack-%LANGUAGE_CODE%"
+        options: purge_ds_store
+        pkgdir: "%RECIPE_CACHE_DIR%"
+      pkgname: "%NAME%_%LANGUAGE_CODE%-%version%"
+
+  - Processor: PathDeleter
+    Arguments:
+     path_list:
+       - "%RECIPE_CACHE_DIR%/%NAME%"
+       - "%RECIPE_CACHE_DIR%/tarball.tar.bz2"
+

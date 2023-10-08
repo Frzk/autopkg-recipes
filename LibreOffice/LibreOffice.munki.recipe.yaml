@@ -1,0 +1,30 @@
+Description: |
+  Downloads, packages and imports the chosen version of LibreOffice in Munki.
+  Set VERSION to the desired version of LibreOffice.
+  Set ARCH to either "aarch64" for Apple Silicon, or "x86_64" for Intel.
+Identifier: com.github.frzk.munki.LibreOffice
+Input:
+  NAME: libreoffice
+  VERSION: "7.5.7"
+  ARCH: aarch64
+  MUNKI_CATEGORY: Productivity
+  MUNKI_REPO_SUBDIR: "apps/%NAME%"
+  pkginfo:
+    catalogs:
+      - testing
+    description:
+    category: "%MUNKI_CATEGORY%"
+    developer: The Document Foundation
+    display_name: LibreOffice
+    name: "%NAME%"
+    minimum_os_version: "10.9.0"
+    blocking_applications:
+      - LibreOffice
+    unattended_install: yes
+MinimumVersion: "0.4.0"
+ParentRecipe: com.github.frzk.pkg.LibreOffice
+Process:
+  - Processor: MunkiImporter
+    Arguments:
+      pkg_path: "%pkg_path%"
+      repo_subdirectory: "%MUNKI_REPO_SUBDIR%"

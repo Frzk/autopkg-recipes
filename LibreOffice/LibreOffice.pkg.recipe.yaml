@@ -1,0 +1,38 @@
+Description: |
+  Downloads and packages the chosen version of LibreOffice.
+  Set VERSION to the desired version of LibreOffice.
+  Set ARCH to either "aarch64" for Apple Silicon, or "x86_64" for Intel.
+Identifier: com.github.frzk.pkg.LibreOffice
+Input:
+  NAME: libreoffice
+  VERSION: "7.5.7"
+  ARCH: aarch64
+MinimumVersion: "0.4.0"
+ParentRecipe: com.github.frzk.download.LibreOffice
+Process:
+  - Processor: AppDmgVersioner
+    Arguments:
+      dmg_path: "%pathname%"
+
+  - Processor: PkgRootCreator
+    Arguments:
+      pkgdirs:
+        Applications: "0775"
+      pkgroot: "%RECIPE_CACHE_DIR%/%NAME%"
+
+  - Processor: Copier
+    Arguments:
+      source_path: "%pathname%/LibreOffice.app"
+      destination_path: "%pkgroot%/Applications/LibreOffice.app"
+
+  - Process: PkgCreator
+    Arguments:
+      pkg_request:
+        chown:
+          - path: Applications
+            user: root
+            group: admin
+        id: org.libreoffice.script
+        options: purge_ds_store
+        pkgdir: "%RECIPE_CACHE_DIR%"
+      pkgname: "%NAME%-%version%"

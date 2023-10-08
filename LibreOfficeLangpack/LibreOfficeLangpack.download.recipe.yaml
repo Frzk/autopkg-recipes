@@ -1,0 +1,26 @@
+Description: |
+  Downloads the specified version of LibreOffice, along with the desired language pack.
+  Set VERSION to the desired version of LibreOffice.
+  Set ARCH to either "aarch64" for Apple Silicon or "x86_64" for Intel.
+  Set LANGUAGE_CODE to the 2-chars language code of your choice.
+Identifier: com.github.frzk.download.LibreOfficeLangpack
+Input:
+  NAME: libreoffice
+  VERSION: "7.5.7"
+  ARCH: aarch64
+  LANGUAGE_CODE: fr
+MinimumVersion: "0.4.0"
+ParentRecipe: com.github.frzk.download.LibreOffice
+Process:
+  - Processor: URLTextSearcher
+    Arguments:
+      re_pattern: (LibreOffice_(?P<version_number>[\d\.]+)_MacOS_(aarch|x86_)64_langpack_%LANGUAGE_CODE%.dmg)
+      url: "https://download.documentfoundation.org/libreoffice/stable/%VERSION%/mac/%ARCH%/"
+      request_headers:
+        User-Agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0.2 Safari/605.1.15"
+  - Processor: URLDownloader
+    Arguments:
+      comment: "We stash the .app download path for potential later use (see https://github.com/autopkg/autopkg/wiki/Defining-Custom-Variables)."
+      app_pathname: "%pathname%"
+      url: "https://download.documentfoundation.org/libreoffice/stable/%VERSION%/mac/%ARCH%/%match%"
+      filename: "%NAME%-%version_number%_langpack_%LANGUAGE_CODE%.dmg"
