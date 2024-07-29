@@ -6,7 +6,7 @@ Identifier: com.github.frzk.download.QGIS
 Input:
   NAME: qgis
   RELEASE: pr
-  SEARCH_URL: https://www.qgis.org/en/site/forusers/download.html
+  SEARCH_URL: https://www.qgis.org/download/
   SEARCH_PATTERN: (?P<url>https://qgis\.org/downloads/macos/qgis-macos-%RELEASE%\.dmg)
 MinimumVersion: "2.3"
 Process:
