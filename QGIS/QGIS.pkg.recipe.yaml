@@ -6,9 +6,6 @@ Description: |-
 Identifier: com.github.frzk.pkg.QGIS
 Input:
   NAME: qgis
-  RELEASE: pr
-  SEARCH_URL: https://www.qgis.org/download/
-  SEARCH_PATTERN: (?P<url>https://qgis\.org/downloads/macos/qgis-macos-%RELEASE%\.dmg)
 MinimumVersion: "2.3"
 ParentRecipe: com.github.frzk.download.QGIS
 Process:

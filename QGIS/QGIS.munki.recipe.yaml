@@ -5,10 +5,6 @@ Description: |-
   Override RELEASE to get the release type your want: 'pr' for the latest Point Release or 'ltr' for the latest Long Term Release.
 Identifier: com.github.frzk.munki.QGIS
 Input:
-  NAME: qgis
-  RELEASE: pr
-  SEARCH_URL: https://www.qgis.org/download/
-  SEARCH_PATTERN: (?P<url>https://qgis\.org/downloads/macos/qgis-macos-%RELEASE%\.dmg)
   MUNKI_REPO_SUBDIR: apps/qgis
   pkginfo:
     catalogs:
